@@ -2,9 +2,18 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>여행 플랫폼</title>
+    <meta name="description" content="여행 일정, 동선, 정산을 함께 정리하는 앱" />
+
+    <!-- 브라우저 탭 아이콘: SVG를 지원하는 브라우저는 SVG, 아니면 ICO를 쓴다 -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- 아이폰 홈 화면 아이콘: iOS는 manifest의 아이콘 대신 이 태그를 본다 -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <!-- 모바일 브라우저 상단 바 색. manifest의 theme_color와 같은 값 -->
+    <meta name="theme-color" content="#0284c7" />
+    <!-- manifest 연결 태그와 Service Worker 등록 코드는 vite-plugin-pwa가 빌드할 때 자동으로 넣는다 -->
   </head>
   <body>
     <div id="root"></div>
