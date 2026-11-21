@@ -3,7 +3,9 @@
 > 노트북과 데스크탑을 오가며 작업하므로, 어디까지 했는지를 여기에 남긴다.
 > 새 기기에서 시작할 때 이 파일부터 읽는다.
 
-## 현재 위치: 0단계 (세팅) 진행 중
+## 현재 위치: 0단계 (세팅) 완료 → 1단계 (로그인) 준비
+
+배포 주소: https://travel-platform-sigma.vercel.app/
 
 ### 0단계 체크리스트
 - [x] Vite + React + TypeScript 프로젝트 생성, 기본 템플릿 정리
@@ -12,7 +14,8 @@
 - [x] 첫 커밋
 - [x] GitHub 저장소 연결 & push (https://github.com/JeongUk00/travel-platform)
 - [x] PWA 설정 (`vite-plugin-pwa`: manifest, 아이콘, Service Worker)
-- [ ] Vercel 배포 → 폰에서 "홈 화면에 추가" 테스트
+- [x] Vercel 배포 (push하면 자동 배포)
+- [ ] 폰에서 "홈 화면에 추가" 테스트 (안드로이드, 아이폰)
 
 ## 작업 일지
 
@@ -42,7 +45,17 @@
 - 학습 노트 `docs/learning/02-pwa.md` 작성.
   - 확인 질문에 답하고 검토받음. 4번(dev와 preview 차이)과 5번(maskable 여백)은 다시 정리하기.
 - 협업 방식 결정: 여자친구가 기획과 Figma 디자인을 맡는다. 협업 문서는 노션에 두고, 원본은 `docs/collab/notion-page.md`.
-  - **다음 할 일: 협업 페이지를 노션에 붙여 넣고 여자친구에게 공유 → Vercel 배포.**
+  - 할 일: 협업 페이지를 노션에 붙여 넣고 여자친구에게 공유.
+- Vercel 배포. GitHub 저장소를 연결해 push하면 자동 배포되도록 설정.
+  - 첫 배포가 끝나지 않는 문제: 로그에 `Network: use --host to expose`(개발/미리보기 서버 메시지)가 떠 있었다. Build Command가 서버를 켜는 명령으로 잡혀 있던 것으로 보고, `npm run build`로 바로잡아 해결.
+  - 배포 사이트 확인: HTTPS, Service Worker activated, manifest와 아이콘 정상, `sw.js` 캐시 헤더 `max-age=0, must-revalidate`.
+  - 학습 노트 `docs/learning/03-deploy.md` 작성.
+- `autoUpdate` 설명 정정: 새로고침은 하지 않고, 새 버전은 "다음에 열 때" 보인다 (빌드 결과물로 확인). `02-pwa.md`에 정정 표시.
+- 앱 이름을 **노트립 (Note-Trip)**으로 결정. manifest, 페이지 제목, 화면 제목, README, 협업 페이지 제목에 반영.
+  - GitHub 저장소 이름, Vercel 주소, package.json 이름은 `travel-platform` 그대로 둔다 (사용자에게 보이지 않는 내부 이름).
+  - 아이콘은 여자친구 디자인을 받으면 `public/favicon.svg` 교체 후 `npm run generate-pwa-assets`. 아이폰은 홈 화면에서 지우고 다시 추가해야 반영됨.
+- `03-deploy.md` 확인 질문에 답하고 검토받음. 3번(install, CDN 단계)과 5번(왜 옛 버전에 갇히는지)은 다시 정리하기.
+  - **다음 할 일: 폰 설치 테스트, 여자친구 기획 답변 받기 → 1단계(로그인) 시작. 로그인 화면 디자인이 필요하다.**
 
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:
