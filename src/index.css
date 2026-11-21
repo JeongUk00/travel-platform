@@ -1,0 +1,4 @@
+/* 앱 전체에 적용되는 전역 스타일.
+   아래 한 줄이 Tailwind 전체(기본 스타일 초기화 + 유틸리티 클래스)를 불러온다.
+   Tailwind v4부터는 tailwind.config.js 없이 CSS 파일에서 바로 설정한다. */
+@import 'tailwindcss';
