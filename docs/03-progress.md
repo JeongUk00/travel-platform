@@ -11,7 +11,7 @@
 - [x] Tailwind CSS 연결 (`@tailwindcss/vite` 플러그인)
 - [x] 첫 커밋
 - [x] GitHub 저장소 연결 & push (https://github.com/JeongUk00/travel-platform)
-- [ ] PWA 설정 (`vite-plugin-pwa`: manifest, 아이콘, Service Worker)
+- [x] PWA 설정 (`vite-plugin-pwa`: manifest, 아이콘, Service Worker)
 - [ ] Vercel 배포 → 폰에서 "홈 화면에 추가" 테스트
 
 ## 작업 일지
@@ -30,6 +30,19 @@
 - GitHub 연결. GitHub에서 저장소를 만들 때 README가 함께 생성돼 기록이 둘로 갈라졌고, merge로 합쳤다.
   - rebase를 먼저 시도했지만, Claude 앱이 열어 둔 `.claude/` 폴더를 Git이 다시 쓰지 못해 중단됐다. 그래서 rebase를 취소하고, 폴더를 건드리지 않는 merge로 바꿨다.
   - 교훈: 이미 로컬에 커밋이 있으면 GitHub 저장소는 README 없이 빈 저장소로 만든다.
+- AI 활용을 숨기지 않고 공개하기로 결정. README에 프로젝트 소개와 "AI 활용 방식"을 작성했다.
+- 0단계 도구(React, TS, Vite, 린터, Tailwind)를 모른 채 넘어왔다는 점을 깨닫고, `docs/learning/01-project-setup.md` 학습 노트를 만들었다.
+  - 확인 질문에 답하고 검토받음 (학습 노트 맨 아래).
+
+### 2026-11-21 (노트북, 이어서)
+- PWA 설정: `vite-plugin-pwa`로 manifest와 Service Worker 자동 생성.
+- 앱 아이콘: Vite 로고를 위치 핀 + 동선 그림(`public/favicon.svg`)으로 교체하고, `@vite-pwa/assets-generator`로 크기별 PNG 생성 (`npm run generate-pwa-assets`).
+- 확인: `npm run preview`에서 Service Worker `activated`, 캐시 12개 파일, **서버를 꺼도 화면이 뜨는 것**(오프라인)까지 확인.
+- `npm audit` 경고 4건(moderate): `vite-plugin-pwa` → `workbox-build` → `glob`, `minimatch`. **빌드할 때만 쓰는 개발 도구**라 사용자에게 배포되는 코드에는 포함되지 않는다. `npm audit fix --force`는 플러그인을 구버전(1.1.0)으로 내려 오히려 Vite 8과 호환이 깨지므로 하지 않았다. 플러그인 업데이트 때 다시 확인한다.
+- 학습 노트 `docs/learning/02-pwa.md` 작성.
+  - 확인 질문에 답하고 검토받음. 4번(dev와 preview 차이)과 5번(maskable 여백)은 다시 정리하기.
+- 협업 방식 결정: 여자친구가 기획과 Figma 디자인을 맡는다. 협업 문서는 노션에 두고, 원본은 `docs/collab/notion-page.md`.
+  - **다음 할 일: 협업 페이지를 노션에 붙여 넣고 여자친구에게 공유 → Vercel 배포.**
 
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:
