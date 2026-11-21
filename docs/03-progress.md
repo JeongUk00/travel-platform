@@ -10,7 +10,7 @@
 - [x] 린터 oxlint 설정 (`npm run lint`)
 - [x] Tailwind CSS 연결 (`@tailwindcss/vite` 플러그인)
 - [x] 첫 커밋
-- [ ] GitHub 저장소 연결 & push (백업, 배포, 포트폴리오)
+- [x] GitHub 저장소 연결 & push (https://github.com/JeongUk00/travel-platform)
 - [ ] PWA 설정 (`vite-plugin-pwa`: manifest, 아이콘, Service Worker)
 - [ ] Vercel 배포 → 폰에서 "홈 화면에 추가" 테스트
 
@@ -26,6 +26,10 @@
   - 확인: 빌드 결과 CSS가 0KB → 약 6.8KB로 늘었고, 실제로 쓴 클래스(`min-h-dvh` 등)만 들어갔다.
 - `.claude/launch.json` 추가: Claude 앱에서 개발 서버(`npm run dev`)를 띄우는 설정.
 - 노트북에 `safe.directory` 설정 후 첫 커밋. (데스크탑은 아직 설정 안 함)
+- `.gitattributes`로 줄바꿈을 LF로 통일.
+- GitHub 연결. GitHub에서 저장소를 만들 때 README가 함께 생성돼 기록이 둘로 갈라졌고, merge로 합쳤다.
+  - rebase를 먼저 시도했지만, Claude 앱이 열어 둔 `.claude/` 폴더를 Git이 다시 쓰지 못해 중단됐다. 그래서 rebase를 취소하고, 폴더를 건드리지 않는 merge로 바꿨다.
+  - 교훈: 이미 로컬에 커밋이 있으면 GitHub 저장소는 README 없이 빈 저장소로 만든다.
 
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:
