@@ -10,7 +10,7 @@
 function App() {
   return (
     <main className="min-h-dvh bg-slate-50 p-6">
-      <h1 className="text-2xl font-bold text-slate-900">여행 플랫폼</h1>
+      <h1 className="text-2xl font-bold text-slate-900">노트립</h1>
       <p className="mt-2 text-slate-500">0단계 세팅 중 · Tailwind 연결됨</p>
     </main>
   )

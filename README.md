@@ -1,9 +1,11 @@
-# travel-platform
+# 노트립 (Note-Trip)
 
 혼자 또는 여럿이 가는 여행의 **일정, 동선, 정산을 앱 하나에서 함께 정리**하고,
 여행 중에는 **열자마자 오늘 동선**을 볼 수 있는 여행 플랫폼입니다. PWA로 시작해 이후 Google Play와 App Store 출시를 목표로 합니다.
 
-> 🚧 개발 중: 현재 0단계(프로젝트 세팅). 진행 상황은 [docs/03-progress.md](docs/03-progress.md)를 참고하세요.
+> 🔗 **배포 주소**: https://travel-platform-sigma.vercel.app/ (폰에서 열고 "홈 화면에 추가"하면 앱처럼 설치됩니다)
+>
+> 🚧 개발 중: 0단계(프로젝트 세팅) 완료. 진행 상황은 [docs/03-progress.md](docs/03-progress.md)를 참고하세요.
 
 ## 왜 만들었나
 여행 일정은 공유 문서나 카톡으로, 정산은 또 다른 앱으로 흩어져 관리됩니다.
@@ -17,7 +19,7 @@
 - 세계지도에 다녀온 나라 색칠, 성향 기반 나라 추천
 
 ## 기술 스택
-React · TypeScript · Vite · Tailwind CSS · Supabase(예정) · Leaflet(예정) · Vercel(예정)
+React · TypeScript · Vite · Tailwind CSS · PWA(vite-plugin-pwa) · Vercel · Supabase(예정) · Leaflet(예정)
 
 각 기술을 고른 이유와 버린 대안은 [docs/02-design.md](docs/02-design.md)에 정리되어 있습니다.
 
