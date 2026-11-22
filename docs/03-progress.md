@@ -91,7 +91,14 @@
   - 정욱 이메일로 실제 가입(확인 메일) → 로그인 테스트 완료.
   - Vercel 환경 변수 2개 추가 (타입 Config: 브라우저로 나가는 공개 값이라 Secret으로 숨길 이유가 없음). `VITE_` + `key` 이름 경고는 값이 `sb_publishable_`임을 확인하고 Mark as Safe.
   - 학습 노트 `docs/learning/06-auth.md` 작성.
-  - **다음 할 일: 06-auth.md 확인 질문 답하기 → 구글 로그인.**
+- 06-auth.md 확인 질문에 답하고 검토받음. 단답형이 어렵다는 피드백 → **앞으로 확인 질문은 객관식**(CLAUDE.md에 규칙 추가). 06에 객관식 복습 3문제 추가.
+- 구글 로그인 코드: `api.ts`에 `signInWithGoogle(redirectPath)`, 로그인 화면에 "Google로 계속하기" 버튼(임시). 학습 노트 `07-oauth.md`.
+  - Google Cloud 프로젝트 `note-trip`, OAuth 클라이언트 `note-trip-web (Supabase)` 생성 (웹 애플리케이션, 리디렉션 URI = Supabase `/auth/v1/callback`). 테스트 사용자에 정욱, 여자친구 추가.
+  - Supabase에 Google 공급자 켜고 Client ID/Secret 입력. **Secret은 Supabase에만** 보관 (저장소, Vercel, 노션에 두지 않음).
+  - Redirect URLs를 `https://travel-platform-sigma.vercel.app/**`, `http://localhost:5173/**`로 변경.
+  - **구글 로그인 테스트 완료.**
+  - 06-auth.md 객관식 복습 3문제 모두 정답.
+  - **다음 할 일: 07-oauth.md 객관식 5문제 답하기 → 카카오 로그인.**
 
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Navigate, useLocation } from 'react-router'
-import { signInWithEmail, signUpWithEmail } from '../api'
+import { signInWithEmail, signInWithGoogle, signUpWithEmail } from '../api'
 import { useAuth } from '../useAuth'
 
 // 로그인 화면 (주소: /login)
@@ -53,13 +53,40 @@ export function LoginPage() {
     }
   }
 
+  async function handleGoogle() {
+    setSubmitting(true)
+    setError(null)
+    try {
+      // 성공하면 이 페이지를 떠나 구글로 이동하므로, 아래 finally에서 버튼을 다시 켜지 않는다.
+      // (돌아오기 전에 버튼이 다시 눌리는 것을 막기 위해)
+      await signInWithGoogle(from)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '문제가 생겼어요.')
+      setSubmitting(false)
+    }
+  }
+
   const isSignIn = mode === 'signIn'
 
   return (
     <section className="mx-auto max-w-sm">
       <h1 className="text-2xl font-bold text-slate-900">{isSignIn ? '로그인' : '회원가입'}</h1>
 
-      <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
+      {/* 소셜 로그인은 가입과 로그인이 따로 없다. 처음이면 자동으로 가입된다.
+          그래서 모드(로그인/가입)와 상관없이 항상 보여준다.
+          ⚠️ 임시 버튼. 정식 디자인에서는 구글의 버튼 디자인 가이드(로고, 문구)를 따라야 한다. */}
+      <button
+        type="button"
+        onClick={handleGoogle}
+        disabled={submitting}
+        className="mt-6 w-full rounded border border-slate-300 bg-white py-2 font-semibold text-slate-800 disabled:opacity-50"
+      >
+        Google로 계속하기
+      </button>
+
+      <p className="mt-6 text-center text-xs text-slate-400">또는 이메일로</p>
+
+      <form onSubmit={handleSubmit} className="mt-3 flex flex-col gap-3">
         <label className="flex flex-col gap-1 text-sm text-slate-700">
           이메일
           {/* type="email": 폰에서 @가 있는 키보드가 뜨고, 브라우저가 형식을 먼저 검사한다.
