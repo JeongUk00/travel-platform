@@ -15,7 +15,7 @@
 - [x] GitHub 저장소 연결 & push (https://github.com/JeongUk00/travel-platform)
 - [x] PWA 설정 (`vite-plugin-pwa`: manifest, 아이콘, Service Worker)
 - [x] Vercel 배포 (push하면 자동 배포)
-- [ ] 폰에서 "홈 화면에 추가" 테스트 (안드로이드, 아이폰)
+- [x] 폰에서 "홈 화면에 추가" 테스트 (정욱 폰, 여자친구 폰 모두 정상, 이름 "노트립" 표시)
 
 ## 작업 일지
 
@@ -55,7 +55,17 @@
   - GitHub 저장소 이름, Vercel 주소, package.json 이름은 `travel-platform` 그대로 둔다 (사용자에게 보이지 않는 내부 이름).
   - 아이콘은 여자친구 디자인을 받으면 `public/favicon.svg` 교체 후 `npm run generate-pwa-assets`. 아이폰은 홈 화면에서 지우고 다시 추가해야 반영됨.
 - `03-deploy.md` 확인 질문에 답하고 검토받음. 3번(install, CDN 단계)과 5번(왜 옛 버전에 갇히는지)은 다시 정리하기.
-  - **다음 할 일: 폰 설치 테스트, 여자친구 기획 답변 받기 → 1단계(로그인) 시작. 로그인 화면 디자인이 필요하다.**
+  - **다음 할 일: 여자친구 기획 답변 받기 → 1단계(로그인) 시작. 로그인 화면 디자인이 필요하다.**
+
+### 2026-11-22 (노트북)
+- 1단계 준비: 디자인 없이 할 수 있는 Supabase 연결부터 시작.
+  - `@supabase/supabase-js` 설치, `src/lib/supabase.ts`(연결 객체 하나), `src/vite-env.d.ts`(환경 변수 타입), `.env.example`(필요한 변수 양식).
+  - 학습 노트 `docs/learning/04-supabase.md` 작성.
+- Supabase 프로젝트 `note-trip` 생성 (Free, Seoul 리전), `.env.local`에 주소와 publishable key 입력.
+  - 연결 테스트: 올바른 키 → 200, 틀린 키 → 401. 앱의 `supabase.ts`로 `trips` 테이블을 조회하자 "테이블 없음"(PGRST205)이 돌아옴 → **연결은 성공**, 테이블은 아직 안 만듦.
+  - 현재 로그인 방식은 이메일만 켜져 있음 (구글, 카카오는 꺼짐).
+- `04-supabase.md` 확인 질문에 답하고 검토받음. 1번(프론트/백엔드 기준)과 5번(RLS 원리) 다시 정리하기.
+  - 화면에서 처음 `supabase`를 쓸 때 Vercel에도 환경 변수를 넣어야 한다.
 
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:
