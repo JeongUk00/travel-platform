@@ -32,7 +32,7 @@ export default defineConfig({
         lang: 'ko',
         start_url: '/', // 홈 화면 아이콘을 눌렀을 때 처음 여는 주소
         display: 'standalone', // 주소창 없이 앱처럼 전체 화면으로 연다 (핵심 설정)
-        theme_color: '#0284c7', // 상단 상태 표시줄 색 (아이콘 배경과 같은 파란색)
+        theme_color: '#2c4388', // 상단 상태 표시줄 색 (아이콘 그라데이션의 위쪽 남색)
         background_color: '#f8fafc', // 앱이 켜지는 순간 보이는 스플래시 화면 배경 (App의 bg-slate-50과 같은 색)
         // 아이콘은 pwa-assets.config.ts로 생성한 파일들이다 (npm run generate-pwa-assets).
         icons: [
@@ -52,6 +52,8 @@ export default defineConfig({
         // Service Worker가 미리 폰에 저장해 둘(precache) 파일 종류.
         // 기본값은 js, css, html뿐이라 아이콘도 오프라인에서 보이도록 이미지 확장자를 추가한다.
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        // 아이콘 원본(1024px, 약 240KB)은 아이콘을 만들 때만 쓰므로 폰에 미리 저장할 필요가 없다.
+        globIgnores: ['**/app-icon.png'],
       },
     }),
   ],
