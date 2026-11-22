@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- 앱 아이콘 원본. 배경(하늘색) + 점선 동선 + 위치 핀. 이 파일 하나에서 모든 크기의 PNG 아이콘을 만든다. -->
-  <rect width="512" height="512" rx="112" fill="#0284c7"/>
-  <path d="M120 380 C 180 300, 220 420, 300 330" fill="none" stroke="#bae6fd" stroke-width="18" stroke-linecap="round" stroke-dasharray="4 34"/>
-  <path d="M320 112c-55 0-100 44-100 99 0 74 100 173 100 173s100-99 100-173c0-55-45-99-100-99z" fill="#ffffff"/>
-  <circle cx="320" cy="211" r="38" fill="#0284c7"/>
-</svg>
