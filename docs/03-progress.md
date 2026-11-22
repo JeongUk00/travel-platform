@@ -67,6 +67,13 @@
 - `04-supabase.md` 확인 질문에 답하고 검토받음. 1번(프론트/백엔드 기준)과 5번(RLS 원리) 다시 정리하기.
   - 화면에서 처음 `supabase`를 쓸 때 Vercel에도 환경 변수를 넣어야 한다.
 
+- 화면 이동 뼈대: React Router 8 설치.
+  - `src/app/router.tsx`(주소 ↔ 화면 지도), `RootLayout`(공통 틀 + **임시 메뉴**), `NotFoundPage`, 빈 페이지 3개(`/`, `/trips/:tripId`, `/login`). `App.tsx`는 삭제.
+  - `vercel.json`: 주소로 직접 들어와도 404가 안 나게 모든 주소를 `index.html`로(rewrites). 빌드 설정도 코드로 고정.
+  - 확인: 메뉴 이동 시 페이지를 다시 받지 않음, 주소 직접 입력, 없는 주소 안내 화면 모두 정상. JS 번들 약 69KB → 100KB(gzip).
+  - 설계 문서 폴더 구조에 `pages/` 추가. 학습 노트 `docs/learning/05-routing.md` 작성.
+  - **다음 할 일: 05-routing.md 확인 질문 답하기. 배포 후 배포 사이트에서 주소 직접 입력 테스트.**
+
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:
   - **백업**: USB는 분실, 고장, 안전 제거 없이 뽑았을 때의 파일 손상 위험이 있다.

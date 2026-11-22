@@ -90,6 +90,7 @@ features/settlement/
 ├── hooks.ts          # TanStack Query로 api.ts를 감싼 훅 (useExpenses 등)
 ├── calculate.ts      # 정산 계산 로직 (화면과 무관한 순수 함수 → 테스트 쉬움)
 ├── calculate.test.ts # 계산 로직 테스트
+├── pages/            # 주소 하나에 대응하는 화면 (router.tsx에 연결)
 └── components/       # 이 기능 전용 화면 조각
 ```
 
