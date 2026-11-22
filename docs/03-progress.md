@@ -99,7 +99,13 @@
   - **구글 로그인 테스트 완료.**
   - 06-auth.md 객관식 복습 3문제 모두 정답.
   - 07-oauth.md 객관식 5문제 모두 정답.
-  - **다음 할 일: 카카오 로그인.**
+- 카카오 로그인 코드: `signInWithGoogle` → `signInWithSocial(provider)`로 합침, 로그인 화면에 카카오 버튼(맨 위, #FEE500), 메뉴는 이메일이 없으면 이름 표시. 학습 노트는 `07-oauth.md` 끝에 추가(객관식 3문제).
+  - 카카오 설정: 앱 `노트립`, 카카오 로그인 ON, 리다이렉트 URI = Supabase callback, Client Secret 활성화(Supabase에만 보관). 동의항목: 닉네임(필수), 프로필 사진(선택), 이메일(선택). OpenID Connect는 OFF(지금 방식엔 불필요, 앱 출시 때 재검토).
+  - 첫 테스트에서 **KOE205**: Supabase가 이메일(account_email)을 항상 요청하는데 동의항목에 없어서. → 본인 인증 후 **개인 개발자 비즈 앱 전환**(사업자등록번호 불필요) → 이메일 동의항목 켬 → 로그인 성공.
+  - Supabase "Allow users without an email"은 ON 유지 (이메일 없는 카카오 계정 대비).
+  - 🐛 (고침, 확인 완료) 로그인 후 메뉴에 이름이 안 보임: 이메일이 없으면 Supabase가 email을 빈 문자열("")로 주는데 `??`는 빈 문자열에서 멈춤 → `||`로 바꾸고 `features/auth/displayName.ts`로 분리.
+  - **카카오 로그인 완료.** 다음 할 일: 07-oauth.md Q6~Q8 답하기 → 네이버 로그인.
+  - 📌 나중에: 카카오 **연결 해제 웹훅** 처리 (회원 탈퇴 기능 Z-2 만들 때, Edge Function 필요).
 
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:

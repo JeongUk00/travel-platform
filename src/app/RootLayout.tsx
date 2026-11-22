@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router'
 import { signOut } from '../features/auth/api'
+import { getDisplayName } from '../features/auth/displayName'
 import { useAuth } from '../features/auth/useAuth'
 
 // 모든 화면이 공유하는 바깥 틀(레이아웃).
@@ -10,6 +11,8 @@ import { useAuth } from '../features/auth/useAuth'
 //    실제 메뉴 모양(하단 탭바 등)은 디자인을 받으면 교체한다.
 export function RootLayout() {
   const { user } = useAuth()
+  // 화면에 보여줄 이름 (이메일 → 공급자가 준 이름 → '나'). 규칙은 getDisplayName 한 곳에 있다.
+  const displayName = getDisplayName(user)
 
   return (
     <div className="min-h-dvh bg-slate-50">
@@ -38,7 +41,7 @@ export function RootLayout() {
         <div className="ml-auto flex items-center gap-3">
           {user ? (
             <>
-              <span className="text-slate-500">{user.email}</span>
+              <span className="text-slate-500">{displayName}</span>
               {/* 로그아웃하면 AuthProvider가 session=null을 받고,
                   지금 화면이 보호된 화면이면 RequireAuth가 알아서 /login으로 보낸다. */}
               <button type="button" onClick={() => signOut()} className="text-slate-900 underline">

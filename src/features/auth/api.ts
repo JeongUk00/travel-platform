@@ -27,17 +27,23 @@ export async function signUpWithEmail(email: string, password: string) {
   return { needsEmailConfirmation: data.session === null }
 }
 
-// 소셜 로그인(OAuth) 시작. 지금은 구글, 이후 카카오와 네이버도 같은 모양으로 추가된다.
-// 이 함수는 "로그인 결과"를 돌려주지 않는다. 대신 브라우저가 구글 로그인 페이지로 **떠난다.**
-//   1) 우리 앱 → 2) 구글 로그인 화면(구글 사이트) → 3) Supabase 서버(/auth/v1/callback)
+// 우리가 지원하는 소셜 로그인 공급자. 네이버는 Supabase 기본 지원이 아니라서 나중에 따로 추가한다.
+// 문자열 대신 유니언 타입으로 정해 두면 'googel' 같은 오타를 TypeScript가 잡아 준다.
+export type SocialProvider = 'google' | 'kakao'
+
+// 소셜 로그인(OAuth) 시작. 구글이든 카카오든 흐름이 똑같아서 함수 하나로 처리한다.
+//   (처음엔 signInWithGoogle로 만들었다가, 카카오를 추가하면서 거의 똑같은 함수가 두 개 생기는 걸 보고 합쳤다.
+//    "같은 코드가 두 번 나오면 그때 공통으로 묶는다"는 원칙. 처음부터 억지로 일반화하지 않는다)
+// 이 함수는 "로그인 결과"를 돌려주지 않는다. 대신 브라우저가 공급자 로그인 페이지로 **떠난다.**
+//   1) 우리 앱 → 2) 구글/카카오 로그인 화면 → 3) Supabase 서버(/auth/v1/callback)
 //   → 4) redirectTo로 지정한 우리 앱 주소로 돌아옴 (주소에 로그인 정보가 붙어 있음)
 //   → 5) supabase-js가 주소에서 로그인 정보를 읽어 세션 저장 → AuthProvider가 알림 받음
 //
 // redirectPath: 로그인 후 돌아올 화면. RequireAuth가 기억해 둔 "원래 가려던 주소"를 넘긴다.
 //   (이 주소는 Supabase 대시보드의 Redirect URLs에 허용되어 있어야 한다. `/**` 와일드카드로 등록)
-export async function signInWithGoogle(redirectPath: string) {
+export async function signInWithSocial(provider: SocialProvider, redirectPath: string) {
   const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
+    provider,
     options: { redirectTo: window.location.origin + redirectPath },
   })
   if (error) throw new Error(toKoreanMessage(error))

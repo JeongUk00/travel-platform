@@ -1,10 +1,10 @@
 import { useState, type FormEvent } from 'react'
 import { Navigate, useLocation } from 'react-router'
-import { signInWithEmail, signInWithGoogle, signUpWithEmail } from '../api'
+import { signInWithEmail, signInWithSocial, signUpWithEmail, type SocialProvider } from '../api'
 import { useAuth } from '../useAuth'
 
 // 로그인 화면 (주소: /login)
-// 지금은 이메일 + 비밀번호만. 카카오, 구글, 네이버 버튼은 순서대로 추가한다.
+// 지금은 카카오, 구글, 이메일 + 비밀번호. 네이버는 나중에 추가한다.
 // ⚠️ 모양은 기능 확인용 임시 디자인이다. 디자인을 받으면 교체한다.
 type Mode = 'signIn' | 'signUp'
 
@@ -53,13 +53,13 @@ export function LoginPage() {
     }
   }
 
-  async function handleGoogle() {
+  async function handleSocial(provider: SocialProvider) {
     setSubmitting(true)
     setError(null)
     try {
-      // 성공하면 이 페이지를 떠나 구글로 이동하므로, 아래 finally에서 버튼을 다시 켜지 않는다.
+      // 성공하면 이 페이지를 떠나 구글/카카오로 이동하므로, finally로 버튼을 다시 켜지 않는다.
       // (돌아오기 전에 버튼이 다시 눌리는 것을 막기 위해)
-      await signInWithGoogle(from)
+      await signInWithSocial(provider, from)
     } catch (e) {
       setError(e instanceof Error ? e.message : '문제가 생겼어요.')
       setSubmitting(false)
@@ -74,15 +74,27 @@ export function LoginPage() {
 
       {/* 소셜 로그인은 가입과 로그인이 따로 없다. 처음이면 자동으로 가입된다.
           그래서 모드(로그인/가입)와 상관없이 항상 보여준다.
-          ⚠️ 임시 버튼. 정식 디자인에서는 구글의 버튼 디자인 가이드(로고, 문구)를 따라야 한다. */}
-      <button
-        type="button"
-        onClick={handleGoogle}
-        disabled={submitting}
-        className="mt-6 w-full rounded border border-slate-300 bg-white py-2 font-semibold text-slate-800 disabled:opacity-50"
-      >
-        Google로 계속하기
-      </button>
+          ⚠️ 임시 버튼. 정식 디자인에서는 카카오와 구글의 버튼 디자인 가이드(색, 로고, 문구)를 따라야 한다.
+          카카오를 맨 위에 둔 이유: 국내 사용자가 가장 많이 쓰는 로그인이라서. */}
+      <div className="mt-6 flex flex-col gap-2">
+        <button
+          type="button"
+          onClick={() => handleSocial('kakao')}
+          disabled={submitting}
+          // #FEE500: 카카오가 정한 버튼 배경색 (카카오 로그인 디자인 가이드)
+          className="w-full rounded bg-[#FEE500] py-2 font-semibold text-black/85 disabled:opacity-50"
+        >
+          카카오 로그인
+        </button>
+        <button
+          type="button"
+          onClick={() => handleSocial('google')}
+          disabled={submitting}
+          className="w-full rounded border border-slate-300 bg-white py-2 font-semibold text-slate-800 disabled:opacity-50"
+        >
+          Google로 계속하기
+        </button>
+      </div>
 
       <p className="mt-6 text-center text-xs text-slate-400">또는 이메일로</p>
 
