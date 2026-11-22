@@ -98,7 +98,8 @@
   - Redirect URLs를 `https://travel-platform-sigma.vercel.app/**`, `http://localhost:5173/**`로 변경.
   - **구글 로그인 테스트 완료.**
   - 06-auth.md 객관식 복습 3문제 모두 정답.
-  - **다음 할 일: 07-oauth.md 객관식 5문제 답하기 → 카카오 로그인.**
+  - 07-oauth.md 객관식 5문제 모두 정답.
+  - **다음 할 일: 카카오 로그인.**
 
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:
