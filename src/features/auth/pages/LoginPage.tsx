@@ -1,10 +1,11 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { Navigate, useLocation } from 'react-router'
 import { signInWithEmail, signInWithSocial, signUpWithEmail, type SocialProvider } from '../api'
+import { clearOAuthRedirectError, peekOAuthRedirectError } from '../oauthRedirectError'
 import { useAuth } from '../useAuth'
 
 // 로그인 화면 (주소: /login)
-// 지금은 카카오, 구글, 이메일 + 비밀번호. 네이버는 나중에 추가한다.
+// 지금은 카카오, 네이버, 구글, 이메일 + 비밀번호.
 // ⚠️ 모양은 기능 확인용 임시 디자인이다. 디자인을 받으면 교체한다.
 type Mode = 'signIn' | 'signUp'
 
@@ -18,7 +19,15 @@ export function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  // 처음 값: 소셜 로그인이 실패해서 돌아왔다면 그 이유. 함수로 넘기면 첫 렌더링 때만 실행된다.
+  const [error, setError] = useState<string | null>(() => {
+    const oauthError = peekOAuthRedirectError()
+    return oauthError ? `소셜 로그인에 실패했어요. (${oauthError})` : null
+  })
+  // 화면이 뜬 뒤에 비운다. (이유는 oauthRedirectError.ts 참고)
+  useEffect(() => {
+    clearOAuthRedirectError()
+  }, [])
   const [notice, setNotice] = useState<string | null>(null)
 
   // 이미 로그인한 상태면 이 화면을 보여줄 이유가 없다.
