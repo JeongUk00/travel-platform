@@ -27,9 +27,11 @@ export async function signUpWithEmail(email: string, password: string) {
   return { needsEmailConfirmation: data.session === null }
 }
 
-// 우리가 지원하는 소셜 로그인 공급자. 네이버는 Supabase 기본 지원이 아니라서 나중에 따로 추가한다.
+// 우리가 지원하는 소셜 로그인 공급자.
 // 문자열 대신 유니언 타입으로 정해 두면 'googel' 같은 오타를 TypeScript가 잡아 준다.
-export type SocialProvider = 'google' | 'kakao'
+// 'custom:naver': 네이버는 Supabase 기본 지원이 아니라서, 대시보드의 Custom Providers에 직접 등록했다.
+//   `custom:` 접두사는 Supabase의 약속이다. supabase-js의 Provider 타입도 `custom:${string}`을 받는다.
+export type SocialProvider = 'google' | 'kakao' | 'custom:naver'
 
 // 소셜 로그인(OAuth) 시작. 구글이든 카카오든 흐름이 똑같아서 함수 하나로 처리한다.
 //   (처음엔 signInWithGoogle로 만들었다가, 카카오를 추가하면서 거의 똑같은 함수가 두 개 생기는 걸 보고 합쳤다.

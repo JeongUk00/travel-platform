@@ -74,7 +74,7 @@ export function LoginPage() {
 
       {/* 소셜 로그인은 가입과 로그인이 따로 없다. 처음이면 자동으로 가입된다.
           그래서 모드(로그인/가입)와 상관없이 항상 보여준다.
-          ⚠️ 임시 버튼. 정식 디자인에서는 카카오와 구글의 버튼 디자인 가이드(색, 로고, 문구)를 따라야 한다.
+          ⚠️ 임시 버튼. 정식 디자인에서는 카카오, 네이버, 구글의 버튼 디자인 가이드(색, 로고, 문구)를 따라야 한다.
           카카오를 맨 위에 둔 이유: 국내 사용자가 가장 많이 쓰는 로그인이라서. */}
       <div className="mt-6 flex flex-col gap-2">
         <button
@@ -85,6 +85,15 @@ export function LoginPage() {
           className="w-full rounded bg-[#FEE500] py-2 font-semibold text-black/85 disabled:opacity-50"
         >
           카카오 로그인
+        </button>
+        <button
+          type="button"
+          onClick={() => handleSocial('custom:naver')}
+          disabled={submitting}
+          // #03C75A: 네이버가 정한 버튼 배경색 (네이버 로그인 디자인 가이드)
+          className="w-full rounded bg-[#03C75A] py-2 font-semibold text-white disabled:opacity-50"
+        >
+          네이버 로그인
         </button>
         <button
           type="button"
