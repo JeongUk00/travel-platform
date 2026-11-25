@@ -3,7 +3,7 @@
 > 노트북과 데스크탑을 오가며 작업하므로, 어디까지 했는지를 여기에 남긴다.
 > 새 기기에서 시작할 때 이 파일부터 읽는다.
 
-## 현재 위치: 0단계 (세팅) 완료 → 1단계 (로그인) 준비
+## 현재 위치: 1단계 (로그인) 기능 완료 → 로그인 화면 디자인 대기
 
 배포 주소: https://travel-platform-sigma.vercel.app/
 
@@ -120,6 +120,15 @@
   - 테스트에서 "missing provider id" 오류가 났다. 네이버는 사용자 id를 `response` 안에 감싸서 주는데, Supabase는 맨 바깥의 `sub`를 찾기 때문이다. → 모양만 바꿔 주는 Edge Function `supabase/functions/naver-userinfo`를 만들었다. 비밀 값은 쓰지 않는다.
   - `supabase/.temp/`(이 기기의 CLI 캐시, 연결된 프로젝트 정보)는 `.gitignore`에 넣었다.
   - **다음 할 일:** 함수 배포 상태 확인 → 대시보드의 네이버 UserInfo URL을 이 함수 주소로 바꾸고 다시 테스트.
+
+### 2026-11-25 (노트북)
+- 함수 배포 확인: 토큰 없이 부르면 함수가 직접 `missing_token`(401)으로 답하고(`verify_jwt = false` 적용됨), 가짜 토큰이면 네이버의 거절(401)을 그대로 전한다.
+- 대시보드 네이버 설정 수정: Userinfo URL을 함수 주소로 바꿨다. 수동 설정인데도 필수인 Issuer URL은 네이버 공개 설정 문서(`/.well-known/openid-configuration`)에서 확인해 `https://nid.naver.com`을 넣었다. JWKS URI는 404가 나던 `/.well-known/jwks.json`을 `https://nid.naver.com/oauth2/jwks`로 고쳤다.
+- 노트북 크롬에 Service Worker가 저장한 옛 버전(11-22 뼈대)이 떠서 `Ctrl + Shift + R`로 해결했다. 서버에는 최신 버전이 있었다.
+- **네이버 로그인 성공.** 메뉴에 네이버 이름이 보인다. → 로그인 방식 4개(이메일, 구글, 카카오, 네이버) 모두 완료.
+- `07-oauth.md`에 네이버 내용과 객관식 Q9~Q13 추가.
+  - **다음 할 일:** Q9~Q13 답하기 → 로그인 화면 디자인 받기(지금 버튼은 임시 디자인).
+  - 📌 나중에: 새 버전 안내(`vite-plugin-pwa`의 `prompt` 모드) 검토. 옛 버전에 갇히는 문제를 실제로 겪었다.
 
 ## 기기 간 이동 시 주의
 - 프로젝트는 USB에 있어서 두 기기가 같은 파일을 쓴다. 그래도 Git과 GitHub를 쓰는 이유:
