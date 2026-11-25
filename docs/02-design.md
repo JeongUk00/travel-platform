@@ -65,11 +65,13 @@
 │   └── functions/           # Edge Function (AI 추천 등 서버 코드)
 ├── src/
 │   ├── main.tsx             # 앱 시작점: React를 화면에 붙인다
+│   ├── assets/brand/        # 피그마에서 받은 로고, 아이콘 SVG (코드에서 import)
 │   ├── app/
 │   │   ├── router.tsx       # URL과 페이지 연결
 │   │   └── providers.tsx    # 로그인, Query 등 앱 전체에 필요한 감싸개
 │   ├── features/            # ★ 기능별 폴더
 │   │   ├── auth/            #   로그인, 탈퇴
+│   │   ├── onboarding/      #   로딩 화면, 처음 온 사람용 소개 화면
 │   │   ├── trips/           #   여행 생성, 초대, 확정
 │   │   ├── itinerary/       #   날짜별 일정, 동선 지도
 │   │   ├── settlement/      #   지출, 정산 계산

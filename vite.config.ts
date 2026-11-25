@@ -33,7 +33,10 @@ export default defineConfig({
         start_url: '/', // 홈 화면 아이콘을 눌렀을 때 처음 여는 주소
         display: 'standalone', // 주소창 없이 앱처럼 전체 화면으로 연다 (핵심 설정)
         theme_color: '#2c4388', // 상단 상태 표시줄 색 (아이콘 그라데이션의 위쪽 남색)
-        background_color: '#f8fafc', // 앱이 켜지는 순간 보이는 스플래시 화면 배경 (App의 bg-slate-50과 같은 색)
+        // 홈 화면 앱을 켜는 순간 안드로이드가 직접 그리는 시작 화면의 배경(아이콘 + 이름).
+        // 그다음 우리 로딩 화면(SplashScreen, 남색 그라데이션)이 이어지므로, 같은 남색으로 맞춰
+        // "흰 화면 → 남색 화면"으로 번쩍이지 않게 한다. (예전 값 #f8fafc는 로딩 화면이 없을 때 기준)
+        background_color: '#2c4388',
         // 아이콘은 pwa-assets.config.ts로 생성한 파일들이다 (npm run generate-pwa-assets).
         icons: [
           { src: 'pwa-64x64.png', sizes: '64x64', type: 'image/png' },

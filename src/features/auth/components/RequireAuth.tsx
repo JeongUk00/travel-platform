@@ -1,4 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router'
+import { hasSeenIntro } from '../../onboarding/introSeen'
 import { useAuth } from '../useAuth'
 
 // "로그인해야 볼 수 있는 화면"을 지키는 문지기. (보호된 라우트, Protected Route)
@@ -14,16 +15,24 @@ export function RequireAuth() {
 
   // 아직 "로그인했었나?" 확인 중. 이때 바로 로그인 화면으로 보내면
   // 이미 로그인한 사람도 새로고침할 때마다 로그인 화면이 깜빡 보였다가 돌아온다.
+  // (지금은 SplashGate가 확인이 끝난 뒤에 라우터를 그려서 여기에 올 일이 없다.
+  //  그래도 이 컴포넌트를 다른 곳에서 써도 안전하도록 검사를 남겨 둔다)
   if (loading) {
     return <p className="text-slate-500">로그인 상태를 확인하는 중…</p>
   }
 
   if (!session) {
+    // 처음 온 사람(소개 화면을 아직 안 본 사람)은 로그인 화면 대신 소개 화면(/welcome)으로.
+    // 소개 화면에서 "여행 시작하기"를 누르면 로그인 화면으로 이어진다.
+    // 왜 여기서 정하나? (버린 대안: 로그인 화면이 열리자마자 소개 화면으로 다시 보내기)
+    //   그러면 /login을 거쳐 /welcome으로 두 번 이동하고, 로그인 화면이 잠깐 보일 수 있다.
+    //   "로그인 안 된 사람을 어디로 보낼까"는 원래 이 문지기의 일이라 여기 한 곳에 둔다.
+    const destination = hasSeenIntro() ? '/login' : '/welcome'
     // replace: 기록을 "교체"한다. 안 그러면 로그인 화면에서 뒤로 가기를 눌렀을 때
     //          다시 보호된 화면 → 다시 로그인 화면으로 튕기는 무한 반복이 생긴다.
     // state.from: 원래 가려던 주소를 들고 간다. 로그인이 끝나면 그 화면으로 돌려보낸다.
     //             (카톡으로 받은 여행 링크 → 로그인 → 바로 그 여행 화면)
-    return <Navigate to="/login" replace state={{ from: location.pathname }} />
+    return <Navigate to={destination} replace state={{ from: location.pathname }} />
   }
 
   return <Outlet />

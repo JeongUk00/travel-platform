@@ -2,3 +2,25 @@
    아래 한 줄이 Tailwind 전체(기본 스타일 초기화 + 유틸리티 클래스)를 불러온다.
    Tailwind v4부터는 tailwind.config.js 없이 CSS 파일에서 바로 설정한다. */
 @import 'tailwindcss';
+
+/* 디자인 토큰: 피그마의 색과 글꼴에 이름을 붙여 둔다.
+   @theme에 적으면 Tailwind가 이름에 맞는 클래스를 만들어 준다.
+     --color-brand-900 → bg-brand-900, text-brand-900, from-brand-900 …
+     --font-logo       → font-logo
+   왜 이름을 붙이나? (버린 대안: 화면마다 bg-[#1a2b5f]처럼 색 값을 직접 쓰기)
+     같은 남색이 여러 화면에 흩어지면, 색을 바꿀 때 모든 곳을 찾아 고쳐야 하고 하나쯤 빠뜨리기 쉽다.
+     이름을 쓰면 여기 한 곳만 고치면 된다. 코드를 읽을 때도 "브랜드 남색"이라는 뜻이 보인다. */
+@theme {
+  /* 피그마 "브랜드컬러" 프레임의 세 색 */
+  --color-brand-900: #1a2b5f; /* 진한 남색: 그라데이션 아래쪽, 글자, 아이콘 */
+  --color-brand-700: #2c4388; /* 남색: 그라데이션 위쪽, 상단 바(theme_color) */
+  --color-brand-gray: #c3c3c3; /* 회색: 구분선, 흐린 글자 */
+
+  /* 기본 글꼴을 Pretendard로 바꾼다. (font-sans는 Tailwind가 모든 글자에 쓰는 기본 글꼴)
+     Pretendard를 못 받았을 때(오프라인 첫 실행 등)는 뒤에 적은 기기 글꼴로 대신 보여 준다. */
+  --font-sans:
+    'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  /* 로고 글자 "Note-Trip" 전용 글꼴 */
+  --font-logo: 'Nunito', sans-serif;
+}

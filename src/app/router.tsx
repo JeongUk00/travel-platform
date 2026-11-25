@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 import { RequireAuth } from '../features/auth/components/RequireAuth'
 import { LoginPage } from '../features/auth/pages/LoginPage'
+import { IntroPage } from '../features/onboarding/pages/IntroPage'
 import { TripDetailPage } from '../features/trips/pages/TripDetailPage'
 import { TripListPage } from '../features/trips/pages/TripListPage'
 import { NotFoundPage } from './NotFoundPage'
@@ -14,6 +15,10 @@ import { RootLayout } from './RootLayout'
 //   둘 다 동작하지만, 객체 방식은 라우트 목록이 "데이터"라서 한눈에 보기 쉽고,
 //   아래 RequireAuth처럼 "로그인 안 했으면 /login으로 보내기" 같은 공통 처리를 붙이기 편하다.
 export const router = createBrowserRouter([
+  // 소개 화면은 RootLayout(임시 메뉴가 있는 틀) 밖에 둔다. 메뉴 없이 화면 전체를 쓰는 디자인이라서.
+  // 로그인 없이 볼 수 있어야 하므로 RequireAuth 밖이기도 하다.
+  // (로그인 화면도 새 디자인으로 바꿀 때 이쪽으로 옮긴다)
+  { path: '/welcome', Component: IntroPage },
   {
     // 모든 화면이 공유하는 바깥 틀. 자식 화면은 RootLayout 안의 <Outlet /> 자리에 들어간다.
     path: '/',
